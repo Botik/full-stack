@@ -157,6 +157,34 @@ let common = {
             html('table', result.html);
         });
     },
+
+    // users
+
+    user_edit_window: (user_id, e) => {
+        // actions
+        cancel_event(e);
+        common.menu_popup_hide_all('all');
+        // call
+        request({location: {dpt: 'user', act: 'edit_window'}, data: {user_id}}, (result) => {
+            common.modal_show(400, result.html);
+        });
+    },
+
+    user_edit_update: (user_id = 0) => {
+        // call
+        request({location: {dpt: 'user', act: 'edit_update'}, data: {
+                user_id,
+                plot_id: gv('plot_id'),
+                first_name: gv('first_name'),
+                last_name: gv('last_name'),
+                phone: gv('phone'),
+                email: gv('email'),
+                offset: global.offset
+            }}, (result) => {
+            common.modal_hide();
+            html('table', result.html);
+        });
+    },
 }
 
 add_event(document, 'DOMContentLoaded', common.init);

@@ -353,5 +353,3 @@ class HTML_Compiler extends HTML {
     }
 
 }
-
-?>

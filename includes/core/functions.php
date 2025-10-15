@@ -106,3 +106,48 @@ function paginator($total, $offset, $q, $path, &$out) {
         }
     }
 }
+
+/**
+ * Get value from array by key and convert to integer
+ *
+ * @param array-key $arr
+ * @param string $key
+ * @param int $default
+ *
+ * @return int
+ */
+function get_int_array_key(mixed &$arr, string $key, int $default = 0): int {
+    return isset($arr[$key]) && is_numeric($arr[$key]) ? (int) $arr[$key] : $default;
+}
+
+/**
+ * Get value from array by key and convert tu trimmed string
+ *
+ * @param array-key $arr
+ * @param string $key
+ * @param string $default
+ *
+ * @return string
+ */
+function get_str_array_key(mixed &$arr, string $key, string $default = ''): string {
+    return isset($arr[$key]) && trim($arr[$key]) ? trim($arr[$key]) : $default;
+}
+
+/**
+ * Safe extract ints array from numbers string with comma separated
+ *
+ * @param string $str_numbers string with numbers with comma separated
+ *
+ * @return array<int>
+ */
+function extract_int_list(string $str_numbers): array {
+    return array_reduce(
+        explode(',', preg_replace('~[^,\d]+~', '', $str_numbers)),
+        function ($acc, $item) {
+            ($acc[] = (int) trim($item));
+
+            return $acc;
+        },
+        []
+    );
+}

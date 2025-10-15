@@ -29,6 +29,10 @@ class DB {
         return $q->fetch();
     }
 
+    public static function prepare($q): \PDOStatement | false {
+        return DB::connect()->prepare($q);
+    }
+
     public static function error() {
         $res = DB::connect()->errorInfo();
         trigger_error($res[2], E_USER_WARNING);
